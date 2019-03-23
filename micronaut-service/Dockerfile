@@ -27,4 +27,4 @@ RUN native-image --no-server \
 FROM frolvlad/alpine-glibc
 EXPOSE 8080
 COPY --from=graalvm /home/app/micronaut-service .
-ENTRYPOINT ["./micronaut-service"]
+ENTRYPOINT ["./micronaut-service", "-Xmx4m"]
