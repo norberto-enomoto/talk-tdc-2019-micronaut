@@ -14,7 +14,6 @@ public class PersonPayload {
   @Positive
   private Integer age;
 
-
   public String getName() {
     return name;
   }
