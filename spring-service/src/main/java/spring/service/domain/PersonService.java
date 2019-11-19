@@ -1,6 +1,5 @@
 package spring.service.domain;
 
-import java.util.Collection;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,29 +15,49 @@ public class PersonService {
     this.personRepository = personRepository;
   }
 
-  public Collection<Person> getPersons() {
+  public Iterable<Person> getPersons() {
     log.info("Getting all persons");
     return personRepository.findAll();
   }
 
-  public Person getPerson(String id) {
+  public Person getPerson(Long id) {
     log.info("Getting person by id {}", id);
-    return personRepository.findById(id);
+    return personRepository.findById(id).orElseThrow(() -> {
+      return new RuntimeException(String.format("Person=[%s] was not found", id));
+    });
   }
 
-  public Person delete(String id) {
+  public Person delete(Long id) {
     log.info("Deleting person by id {}", id);
-    return personRepository.delete(id);
+    Person person = personRepository.findById(id).orElseThrow(() -> {
+      return new RuntimeException(String.format("Person=[%s] was not found", id));
+    });
+    personRepository.deleteById(id);
+    return person;
   }
 
-  public Person createPerson(Person person) {
+  public Person createPerson(String name, Integer age) {
+    Person person = Person.builder().name(name).age(age).build();
     log.info("Creating {}", person);
     return personRepository.save(person);
   }
 
-  public Person updatePerson(String id, Person person) {
+  public Person updatePerson(Long id, String name, Integer age) {
     log.info("Updating person by id {}", id);
-    return personRepository.update(id, person);
+    Person person = personRepository.findById(id).orElseThrow(() -> {
+      return new RuntimeException(String.format("Person=[%s] was not found", id));
+    });
+
+    if (name != null) {
+      person.setName(name);
+    }
+
+    if (age != null) {
+      person.setAge(age);
+    }
+
+    personRepository.save(person);
+    return person;
   }
 
 }

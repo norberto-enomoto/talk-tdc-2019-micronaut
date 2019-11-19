@@ -1,6 +1,5 @@
 package spring.service.infra;
 
-import java.util.Collection;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,32 +27,32 @@ public class PersonController {
   }
 
   @GetMapping
-  public ResponseEntity<Collection<Person>> getPersons() {
-    Collection<Person> persons = personService.getPersons();
+  public ResponseEntity<Iterable<Person>> getPersons() {
+    Iterable<Person> persons = personService.getPersons();
     return ResponseEntity.ok(persons);
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Person> getPerson(@PathVariable String id) {
+  public ResponseEntity<Person> getPerson(@PathVariable Long id) {
     Person person = personService.getPerson(id);
     return ResponseEntity.ok(person);
   }
 
   @PostMapping
   public ResponseEntity<Person> createPerson(@RequestBody @Valid PersonPayload personPayload) {
-    Person person = personService.createPerson(personPayload.toPerson());
+    Person person = personService.createPerson(personPayload.getName(), personPayload.getAge());
     return ResponseEntity.status(HttpStatus.CREATED).body(person);
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<Person> createPerson(@PathVariable String id,
+  public ResponseEntity<Person> createPerson(@PathVariable Long id,
       @RequestBody @Valid PersonPayload personPayload) {
-    Person person = personService.updatePerson(id, personPayload.toPerson());
+    Person person = personService.updatePerson(id, personPayload.getName(), personPayload.getAge());
     return ResponseEntity.ok(person);
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Person> deletePerson(@PathVariable String id) {
+  public ResponseEntity<Person> deletePerson(@PathVariable Long id) {
     Person person = personService.delete(id);
     return ResponseEntity.ok(person);
   }
