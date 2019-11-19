@@ -1,0 +1,31 @@
+POST http://localhost:8080/persons
+Content-Type: application/json
+
+{
+"name" : "Luram Archanjo",
+"age" : 25
+}
+
+###
+
+PUT http://localhost:8080/persons/1
+Content-Type: application/json
+
+{
+  "name" : "Luram Archanjo",
+  "age" : 30
+}
+
+###
+
+GET http://localhost:8080/persons
+
+###
+
+GET http://localhost:8080/persons/1
+
+###
+
+DELETE http://localhost:8080/persons/1
+
+###
