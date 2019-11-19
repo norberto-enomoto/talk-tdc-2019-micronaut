@@ -26,19 +26,23 @@ Run the command bellow
 
 ## GraalVM
 
-Build the image:
+Before, build the application:
+
+`mvn clean package`
+
+then, build the image:
 
 `docker build -f src/main/docker/Dockerfile.jvm -t quarkus-jvm .`
 
 Start the application:
 
-`docker run -i --rm -p 8080:8080 quarkus-jvm`
+`docker run -i --rm --net=host quarkus-jvm`
 
 ## Native Image
 
 Before, build the application:
 
-`mvn package -Pnative -Dquarkus.native.container-build=true`
+`mvn clean package -Pnative -Dquarkus.native.container-build=true`
 
 Then, build the image:
 
@@ -46,7 +50,7 @@ Then, build the image:
 
 Start the application:
 
-`docker run -i --rm -p 8080:8080 quarkus-native`
+`docker run -i --rm --net=host quarkus-native`
 
 ## Intellij
 
