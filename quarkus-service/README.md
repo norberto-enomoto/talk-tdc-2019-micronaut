@@ -47,3 +47,7 @@ Then, build the image:
 Start the application:
 
 `docker run -i --rm -p 8080:8080 quarkus-native`
+
+## Intellij
+
+Open the file `test.http` and enjoy
