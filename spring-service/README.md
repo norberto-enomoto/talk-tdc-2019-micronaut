@@ -21,8 +21,11 @@ and
 Run the command bellow
 
 `docker run -d -p 5432:5432 --name postgres postgres`
+
 `docker exec -it postgres bash`
+
 `psql -U postgres`
+
 `CREATE DATABASE "spring-service";`
 
 # Testing
