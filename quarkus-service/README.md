@@ -22,6 +22,12 @@ Run the command bellow
 
 `docker run -d --name postgres --net=host postgres`
 
+`docker exec -it postgres bash`
+
+`psql -U postgres`
+
+`CREATE DATABASE "quarkus-service";`
+
 # Testing
 
 ## GraalVM
